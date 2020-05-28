@@ -1,7 +1,9 @@
 package edu.scujcc.pircloud.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -14,6 +16,8 @@ public class User {
     private String password;
     private int status = 0;
     private String phone;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private LocalDateTime lastLogin;
     private String lastIp;
     private String taken;
 
@@ -25,6 +29,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", status=" + status +
                 ", phone='" + phone + '\'' +
+                ", lastLogin=" + lastLogin +
                 ", lastIp='" + lastIp + '\'' +
                 ", taken='" + taken + '\'' +
                 '}';
@@ -44,13 +49,22 @@ public class User {
                 Objects.equals(username, user.username) &&
                 Objects.equals(password, user.password) &&
                 Objects.equals(phone, user.phone) &&
+                Objects.equals(lastLogin, user.lastLogin) &&
                 Objects.equals(lastIp, user.lastIp) &&
                 Objects.equals(taken, user.taken);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, status, phone, lastIp, taken);
+        return Objects.hash(id, username, password, status, phone, lastLogin, lastIp, taken);
+    }
+
+    public LocalDateTime getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(LocalDateTime lastLogin) {
+        this.lastLogin = lastLogin;
     }
 
     public String getId() {
