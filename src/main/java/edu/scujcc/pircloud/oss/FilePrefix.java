@@ -12,18 +12,20 @@ import java.util.List;
 /**
  * @author FSMG
  */
-
-public class GetFileList extends Oss {
-
-    public void get() {
-// 上传内容到指定的存储空间（bucketName）并保存为指定的文件名称（objectName）。
-        // 创建OSSClient实例
+public class FilePrefix extends Oss {
+    /**
+     * 默认列举100个文件
+     *
+     * @param data 文件前缀
+     */
+    public void get(String data) {
+// 创建OSSClient实例。
         OSS ossClient = new OSSClientBuilder().build(ENDPOINT, accessKeyId, accessKeySecret);
 
-// 设置最大个数。
-        final int maxKeys = 200;
-// 列举文件。
-        ObjectListing objectListing = ossClient.listObjects(new ListObjectsRequest(bucketName).withMaxKeys(maxKeys));
+// 指定前缀。
+
+// 列举包含指定前缀的文件。默认列举100个文件。
+        ObjectListing objectListing = ossClient.listObjects(new ListObjectsRequest(bucketName).withPrefix(data));
         List<OSSObjectSummary> sums = objectListing.getObjectSummaries();
         for (OSSObjectSummary s : sums) {
             System.out.println("\t" + s.getKey());
