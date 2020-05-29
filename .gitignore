@@ -53,6 +53,7 @@ out/
 *.tar.gz
 *.rar
 
+MyApplication.log*
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 >>>>>>> cc337918c2196e68c417fe419fe8dcf6baa458cd
