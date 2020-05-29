@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.beans.FeatureDescriptor;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -42,11 +43,68 @@ public class FileService {
     public List<File> createFiles(List<File> files) {
         List<File> files1 = new ArrayList<>();
         for (File s : files) {
-            File file1 = repo.findOneByeTag(s.geteTag());
-            if (file1 == null) {
+            if (repo.findOneByeTag(s.geteTag()) == null) {
                 files1.add(repo.save(s));
             }
         }
         return files1;
+    }
+
+    public List<File> getRootDirectory() {
+        List<File> files = getAllFiles();
+        return getList(files);
+    }
+
+    public List<File> getAllFiles() {
+        return repo.findAll();
+    }
+
+    public List<File> getFliesByPrefix(String prefix) {
+        List<File> files = getAllFiles();
+        List<File> files1 = new ArrayList<>();
+        for (File f : files) {
+            if (f.getKey().startsWith(prefix)) {
+                f.setKey(f.getKey().replaceFirst(prefix, ""));
+                files1.add(f);
+            }
+        }
+        return getList(files1);
+    }
+
+    public List<File> getFilesBySuffix(String suffix) {
+        List<File> files = getAllFiles();
+        List<File> files1 = new ArrayList<>();
+        for (File f : files) {
+            String[] s = f.getKey().split("/");
+            if (s[s.length - 1].contains(suffix)) {
+                files1.add(f);
+            }
+        }
+        return files1;
+    }
+
+    public List<File> getList(List<File> files) {
+        List<File> files1 = new ArrayList<>();
+        List<File> files2 = new ArrayList<>();
+        for (File f : files) {
+            if (f.getKey().contains("/")) {
+                String[] s = f.getKey().split("/");
+                files2.addAll(files1);
+                for (File f1 : files2) {
+                    if (f1.getKey().equals(s[0])) {
+                        break;
+                    } else {
+                        File file = new File();
+                        file.setType(File.TPYEISFOLDER);
+                        file.setKey(s[0]);
+                        file.setBucketName(f.getBucketName());
+                        files1.add(file);
+                    }
+                }
+            } else {
+                files1.add(f);
+            }
+        }
+        return files1.stream().distinct().collect(Collectors.toList());
     }
 }

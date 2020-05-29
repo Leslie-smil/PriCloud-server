@@ -22,23 +22,20 @@ public class FileList {
         final int maxKeys = 200;
         ObjectListing objectListing = ossClient.listObjects(new ListObjectsRequest(File.BucketName).withMaxKeys(maxKeys));
         sums = objectListing.getObjectSummaries();
+        objectListing.getCommonPrefixes();
         ossClient.shutdown();
-
         for (OSSObjectSummary s : sums) {
-//            System.out.println("Key : " + s.getKey());
-//            System.out.println("LastModified : " + s.getLastModified());
-//            System.out.println("Size : " + s.getSize());
-//            System.out.println("StorageClass : " + s.getStorageClass());
-//            System.out.println("Owner : " + s.getOwner());
-//            System.out.println("BucketName" + s.getBucketName());
-//            System.out.println("ETag: " + s.getETag());
-//            System.out.println("\n");
             File f = new File();
             f.setKey(s.getKey());
             f.setSize(s.getSize());
             f.seteTag(s.getETag());
             f.setLastModified(s.getLastModified());
             f.setBucketName(s.getBucketName());
+            if (s.getKey().endsWith("/")) {
+                f.setType(File.TPYEISFOLDER);
+            } else {
+                f.setType(File.TPYEISFILE);
+            }
             fileList.add(f);
         }
         return fileList;

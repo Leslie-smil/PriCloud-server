@@ -9,11 +9,13 @@ import java.util.Objects;
  * @author FSMG
  */
 public class File {
-    public static String INTERNALENDPOINT = "oss-cn-hongkong-internal.aliyuncs.com";
+    public static String INTERNALENDPOINT = "hkoss.fuyu.site";
     public static String ENDPOINT = "oss-cn-hongkong.aliyuncs.com";
     public static String accessKeyId = "LTAI4G14NsAKu8BzBSGCGmHA";
     public static String accessKeySecret = "OG3EXeyA6w7cAlQxTk7A5riJV1xGS9";
     public static String BucketName = "fuyu-hk-test";
+    public static String TPYEISFILE = "File";
+    public static String TPYEISFOLDER = "Folder";
     @Id
     private String id;
     private String bucketName;
@@ -21,6 +23,7 @@ public class File {
     private String eTag;
     private long size;
     private Date lastModified;
+    private String type;
 
     @Override
     public String toString() {
@@ -31,6 +34,7 @@ public class File {
                 ", eTag='" + eTag + '\'' +
                 ", size=" + size +
                 ", lastModified=" + lastModified +
+                ", type='" + type + '\'' +
                 '}';
     }
 
@@ -48,12 +52,21 @@ public class File {
                 Objects.equals(bucketName, file.bucketName) &&
                 Objects.equals(key, file.key) &&
                 Objects.equals(eTag, file.eTag) &&
-                Objects.equals(lastModified, file.lastModified);
+                Objects.equals(lastModified, file.lastModified) &&
+                Objects.equals(type, file.type);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, bucketName, key, eTag, size, lastModified);
+        return Objects.hash(id, bucketName, key, eTag, size, lastModified, type);
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getId() {

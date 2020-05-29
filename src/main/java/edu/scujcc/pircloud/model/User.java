@@ -21,6 +21,8 @@ public class User {
     private String lastIp;
     private String taken;
 
+    public static String U = "/user";
+
     @Override
     public String toString() {
         return "User{" +
