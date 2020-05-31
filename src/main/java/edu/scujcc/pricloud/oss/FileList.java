@@ -1,11 +1,11 @@
-package edu.scujcc.pircloud.oss;
+package edu.scujcc.pricloud.oss;
 
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.model.ListObjectsRequest;
 import com.aliyun.oss.model.OSSObjectSummary;
 import com.aliyun.oss.model.ObjectListing;
-import edu.scujcc.pircloud.model.File;
+import edu.scujcc.pricloud.model.File;
 
 import java.util.ArrayList;
 import java.util.List;

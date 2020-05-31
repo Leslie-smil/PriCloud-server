@@ -1,10 +1,10 @@
-package edu.scujcc.pircloud.api;
+package edu.scujcc.pricloud.api;
 
-import edu.scujcc.pircloud.model.File;
-import edu.scujcc.pircloud.model.Result;
-import edu.scujcc.pircloud.oss.FileList;
-import edu.scujcc.pircloud.service.DownloadService;
-import edu.scujcc.pircloud.service.FileService;
+import edu.scujcc.pricloud.model.File;
+import edu.scujcc.pricloud.model.Result;
+import edu.scujcc.pricloud.oss.FileList;
+import edu.scujcc.pricloud.service.DownloadService;
+import edu.scujcc.pricloud.service.FileService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,19 +38,18 @@ public class FileController {
     public Result<List<File>> getFileList() {
         Result<List<File>> result = new Result<>();
         List<File> files = fileService.getRootDirectory();
-        FileList fileList = new FileList();
-        fileService.createFiles(fileList.get());
-        logger.debug("获取目录");
+        logger.debug("获取根目录" + time);
         result.setStatus(Result.SUCCESS);
         result.setMessage("Success");
         result.setData(files);
         return result;
     }
 
-    @GetMapping(value = "s/{subdirectory}")
+    @GetMapping(value = "/{subdirectory}")
     public Result<List<File>> getSubdirectoryList(@PathVariable String subdirectory) {
         subdirectory = subdirectory.replaceAll("\\.", "/");
         Result<List<File>> result = new Result<>();
+        logger.debug("获取指定目录：" + subdirectory + time);
         List<File> files = fileService.getFliesByPrefix(subdirectory);
         result.setStatus(Result.SUCCESS);
         result.setMessage("Success");
@@ -58,7 +57,7 @@ public class FileController {
         return result;
     }
 
-    @GetMapping(value = "f/{name}")
+    @GetMapping(value = "s/{name}")
     public Result<List<File>> searchFilesByName(@PathVariable String name) {
         Result<List<File>> result = new Result<>();
         List<File> files = fileService.getFilesBySuffix(name);
@@ -75,6 +74,27 @@ public class FileController {
         result.setStatus(Result.SUCCESS);
         result.setMessage("Success");
         result.setData(url);
+        return result;
+    }
+
+    @GetMapping(value = "/info")
+    public Result<Long> getBucketInfo() {
+        Result<Long> result = new Result<>();
+        long s = fileService.getBucketSize();
+        result.setStatus(Result.SUCCESS);
+        result.setMessage("Success");
+        result.setData(s);
+        return result;
+    }
+
+    @GetMapping(value = "/refresh")
+    public Result<String> refresh() {
+        Result<String> result = new Result<>();
+        FileList fileList = new FileList();
+        fileService.createFiles(fileList.get());
+        result.setStatus(Result.SUCCESS);
+        result.setMessage("Success");
+        result.setData("已刷新数据库");
         return result;
     }
 

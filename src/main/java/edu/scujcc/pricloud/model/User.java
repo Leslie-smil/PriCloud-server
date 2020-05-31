@@ -1,4 +1,4 @@
-package edu.scujcc.pircloud.model;
+package edu.scujcc.pricloud.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;

@@ -1,4 +1,4 @@
-package edu.scujcc.pircloud;
+package edu.scujcc.pricloud;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;

@@ -1,9 +1,9 @@
-package edu.scujcc.pircloud.api;
+package edu.scujcc.pricloud.api;
 
-import edu.scujcc.pircloud.ip.IpUtil;
-import edu.scujcc.pircloud.model.Result;
-import edu.scujcc.pircloud.model.User;
-import edu.scujcc.pircloud.service.UserService;
+import edu.scujcc.pricloud.ip.IpUtil;
+import edu.scujcc.pricloud.model.Result;
+import edu.scujcc.pricloud.model.User;
+import edu.scujcc.pricloud.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

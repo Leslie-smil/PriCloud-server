@@ -1,8 +1,8 @@
-package edu.scujcc.pircloud.service;
+package edu.scujcc.pricloud.service;
 
-import edu.scujcc.pircloud.dao.FileRepository;
-import edu.scujcc.pircloud.model.File;
-import edu.scujcc.pircloud.oss.GetOssFileUrl;
+import edu.scujcc.pricloud.dao.FileRepository;
+import edu.scujcc.pricloud.model.File;
+import edu.scujcc.pricloud.oss.GetOssFileUrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

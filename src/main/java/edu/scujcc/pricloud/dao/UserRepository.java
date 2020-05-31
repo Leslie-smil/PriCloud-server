@@ -1,6 +1,6 @@
-package edu.scujcc.pircloud.dao;
+package edu.scujcc.pricloud.dao;
 
-import edu.scujcc.pircloud.model.User;
+import edu.scujcc.pricloud.model.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

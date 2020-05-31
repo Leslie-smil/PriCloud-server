@@ -1,4 +1,4 @@
-package edu.scujcc.pircloud;
+package edu.scujcc.pricloud;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

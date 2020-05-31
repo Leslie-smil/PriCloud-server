@@ -1,8 +1,8 @@
-package edu.scujcc.pircloud.oss;
+package edu.scujcc.pricloud.oss;
 
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
-import edu.scujcc.pircloud.model.File;
+import edu.scujcc.pricloud.model.File;
 
 import java.net.URL;
 import java.util.Date;

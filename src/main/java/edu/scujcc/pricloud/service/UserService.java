@@ -1,7 +1,7 @@
-package edu.scujcc.pircloud.service;
+package edu.scujcc.pricloud.service;
 
-import edu.scujcc.pircloud.dao.UserRepository;
-import edu.scujcc.pircloud.model.User;
+import edu.scujcc.pricloud.dao.UserRepository;
+import edu.scujcc.pricloud.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;

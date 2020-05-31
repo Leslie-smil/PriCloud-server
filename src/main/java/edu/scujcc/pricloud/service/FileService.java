@@ -1,7 +1,7 @@
-package edu.scujcc.pircloud.service;
+package edu.scujcc.pricloud.service;
 
-import edu.scujcc.pircloud.dao.FileRepository;
-import edu.scujcc.pircloud.model.File;
+import edu.scujcc.pricloud.dao.FileRepository;
+import edu.scujcc.pricloud.model.File;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanWrapper;
