@@ -32,12 +32,12 @@ public class AuthInterceptor implements HandlerInterceptor {
             return true;
         }
         String token = request.getHeader("token");
-        logger.debug("携带的token是:" + token);
+        logger.debug("携带的token是: " + token);
         if (token != null) {
             int status = service.getToken(token);
             if (status == 1) {
                 logged = true;
-                logger.debug("token" + token + "允许访问" + request.getRequestURI());
+                logger.debug("token : " + token + "  允许访问 " + request.getRequestURI());
             }
         }
         if (!logged) {

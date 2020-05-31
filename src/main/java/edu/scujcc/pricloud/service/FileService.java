@@ -107,4 +107,13 @@ public class FileService {
         }
         return files1.stream().distinct().collect(Collectors.toList());
     }
+
+    public long getBucketSize() {
+        List<File> files = getAllFiles();
+        long size = 0;
+        for (File f : files) {
+            size += f.getSize();
+        }
+        return size;
+    }
 }
