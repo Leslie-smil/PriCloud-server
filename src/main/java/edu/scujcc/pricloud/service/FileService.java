@@ -2,6 +2,7 @@ package edu.scujcc.pricloud.service;
 
 import edu.scujcc.pricloud.dao.FileRepository;
 import edu.scujcc.pricloud.model.File;
+import edu.scujcc.pricloud.oss.GetOssFileUrl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanWrapper;
@@ -10,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.beans.FeatureDescriptor;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -22,7 +25,7 @@ import java.util.stream.Stream;
 public class FileService {
     public static final Logger logger = LoggerFactory.getLogger(FileService.class);
     @Autowired
-    private FileRepository repo;
+    private FileRepository fileRepository;
 
     public static String[] getNullPropertyNames(File file) {
         final BeanWrapper wrapperSource = new BeanWrapperImpl(file);
@@ -33,21 +36,21 @@ public class FileService {
     }
 
     public File createFile(File file) {
-        File file1 = repo.findOneByeTag(file.geteTag());
+        File file1 = fileRepository.findOneByeTag(file.geteTag());
         if (file1 == null) {
-            return repo.save(file);
+            return fileRepository.save(file);
         }
         return file1;
     }
 
-    public List<File> createFiles(List<File> files) {
+    public Integer createFiles(List<File> files) {
         List<File> files1 = new ArrayList<>();
         for (File s : files) {
-            if (repo.findOneByeTag(s.geteTag()) == null) {
-                files1.add(repo.save(s));
+            if (fileRepository.findOneByeTag(s.geteTag()) == null) {
+                files1.add(fileRepository.save(s));
             }
         }
-        return files1;
+        return files1.size();
     }
 
     public List<File> getRootDirectory() {
@@ -56,7 +59,7 @@ public class FileService {
     }
 
     public List<File> getAllFiles() {
-        return repo.findAll();
+        return fileRepository.findAll();
     }
 
     public List<File> getFliesByPrefix(String prefix) {
@@ -115,5 +118,16 @@ public class FileService {
             size += f.getSize();
         }
         return size;
+    }
+
+    public URL getFileUrl(String id) {
+        URL url = null;
+        Optional<File> file = fileRepository.findById(id);
+        if (file.isPresent()) {
+            File file1 = file.get();
+            GetOssFileUrl getOssFileUrl = new GetOssFileUrl();
+            url = getOssFileUrl.geturl(file1.getKey());
+        }
+        return url;
     }
 }

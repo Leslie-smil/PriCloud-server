@@ -3,7 +3,6 @@ package edu.scujcc.pricloud.api;
 import edu.scujcc.pricloud.model.File;
 import edu.scujcc.pricloud.model.Result;
 import edu.scujcc.pricloud.oss.FileList;
-import edu.scujcc.pricloud.service.DownloadService;
 import edu.scujcc.pricloud.service.FileService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,9 +27,6 @@ public class FileController {
     String time = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now());
     @Autowired
     private FileService fileService;
-    @Autowired
-    private DownloadService downloadService;
-
     /**
      * @return result 根目录列表
      */
@@ -70,7 +66,7 @@ public class FileController {
     @GetMapping(value = "/download/{id}")
     public Result<URL> getDownloadLink(@PathVariable String id) {
         Result<URL> result = new Result<>();
-        URL url = downloadService.getFileLink(id);
+        URL url = fileService.getFileUrl(id);
         result.setStatus(Result.SUCCESS);
         result.setMessage("Success");
         result.setData(url);
@@ -91,10 +87,10 @@ public class FileController {
     public Result<String> refresh() {
         Result<String> result = new Result<>();
         FileList fileList = new FileList();
-        fileService.createFiles(fileList.get());
+        int size = fileService.createFiles(fileList.get());
         result.setStatus(Result.SUCCESS);
         result.setMessage("Success");
-        result.setData("已刷新数据库");
+        result.setData("更新 " + size + " 个文件");
         return result;
     }
 

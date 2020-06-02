@@ -14,7 +14,6 @@ import org.springframework.util.DigestUtils;
 import java.beans.FeatureDescriptor;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -70,14 +69,6 @@ public class UserService {
             result.setPassword(null);
         }
         return result;
-    }
-
-    public void deleteUser(String id) {
-        repo.deleteById(id);
-    }
-
-    public List<User> findAll() {
-        return repo.findAll();
     }
 
     public User login(User user, String ip) {
