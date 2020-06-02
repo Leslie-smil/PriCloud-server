@@ -25,12 +25,6 @@ public class UserController {
     @Autowired
     private UserService service;
 
-    /**
-     * 注册
-     *
-     * @param user user
-     * @return result
-     */
     @PostMapping("/register")
     public Result<User> createUser(@RequestBody User user) {
         logger.debug("注册用户 数据：" + user + " 时间：" + time);
@@ -47,12 +41,6 @@ public class UserController {
         return result;
     }
 
-    /**
-     * 更新 user
-     *
-     * @param user user
-     * @return result
-     */
     @PutMapping
     public Result<User> updateUser(@RequestBody User user) {
         logger.debug("更新User" + user + "时间" + time);
@@ -64,13 +52,6 @@ public class UserController {
         return result;
     }
 
-    /**
-     * 登录
-     *
-     * @param user    user
-     * @param request 获取ip
-     * @return result
-     */
     @PostMapping("/login")
     public Result<User> login(@RequestBody User user, HttpServletRequest request) {
         logger.debug("收到用户：" + user.getUsername() + "登录请求 时间：" + time);

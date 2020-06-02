@@ -27,9 +27,7 @@ public class FileController {
     String time = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now());
     @Autowired
     private FileService fileService;
-    /**
-     * @return result 根目录列表
-     */
+
     @GetMapping
     public Result<List<File>> getFileList() {
         Result<List<File>> result = new Result<>();

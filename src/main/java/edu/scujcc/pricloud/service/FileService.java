@@ -126,7 +126,7 @@ public class FileService {
         if (file.isPresent()) {
             File file1 = file.get();
             GetOssFileUrl getOssFileUrl = new GetOssFileUrl();
-            url = getOssFileUrl.geturl(file1.getKey());
+            url = getOssFileUrl.getUrl(file1.getKey());
         }
         return url;
     }
